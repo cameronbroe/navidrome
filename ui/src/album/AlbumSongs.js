@@ -88,6 +88,7 @@ const useStyles = makeStyles(
 
 const AlbumSongs = (props) => {
   const { data, ids } = props
+  const listContext = useListContext()
   const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('md'))
   const classes = useStyles({ isDesktop })
   const dispatch = useDispatch()
@@ -194,6 +195,7 @@ const AlbumSongs = (props) => {
         </Card>
       </div>
       <ExpandInfoDialog content={<SongInfo />} />
+      {React.cloneElement(props.pagination, listContext)}
     </>
   )
 }
@@ -209,7 +211,7 @@ export const removeAlbumCommentsFromSongs = ({ album, data }) => {
 const SanitizedAlbumSongs = (props) => {
   removeAlbumCommentsFromSongs(props)
   const { loaded, loading, total, ...rest } = useListContext(props)
-  return <>{loaded && <AlbumSongs {...rest} actions={props.actions} />}</>
+  return <>{loaded && <AlbumSongs {...rest} actions={props.actions} pagination={props.pagination} />}</>
 }
 
 export default SanitizedAlbumSongs

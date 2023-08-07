@@ -4,6 +4,7 @@ import {
   ShowContextProvider,
   useShowContext,
   useShowController,
+  Pagination,
 } from 'react-admin'
 import { makeStyles } from '@material-ui/core/styles'
 import AlbumSongs from './AlbumSongs'
@@ -36,8 +37,7 @@ const AlbumShowLayout = (props) => {
           reference="song"
           target="album_id"
           sort={{ field: 'album', order: 'ASC' }}
-          perPage={0}
-          pagination={null}
+          perPage={25}
         >
           <AlbumSongs
             resource={'song'}
@@ -46,6 +46,7 @@ const AlbumShowLayout = (props) => {
             actions={
               <AlbumActions className={classes.albumActions} record={record} />
             }
+            pagination={<Pagination rowsPerPageOptions={[25, 50, 100]} />}
           />
         </ReferenceManyField>
       )}
